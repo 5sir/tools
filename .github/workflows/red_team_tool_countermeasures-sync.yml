@@ -1,0 +1,29 @@
+name: fireeye-red_team_tool_countermeasures
+on:
+  schedule:
+    - cron: '1 */3 * * *'
+  workflow_dispatch:
+  watch:
+    types: started
+  repository_dispatch:
+    types: sync-fireeye-red_team_tool_countermeasures
+jobs:
+  repo-sync:
+    env:
+      PAT: ${{ secrets.PAT }} 
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: sync fireeye-red_team_tool_countermeasures
+        uses: repo-sync/github-sync@v2
+        if: env.PAT
+        with:
+          source_repo: "https://github.com/fireeye/red_team_tool_countermeasures.git"
+          source_branch: "master"
+          destination_branch: "red_team_tool_countermeasures"
+          github_token: ${{ secrets.PAT }}
+      

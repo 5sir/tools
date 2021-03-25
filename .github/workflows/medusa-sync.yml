@@ -1,0 +1,29 @@
+name: ascotbe-medusa.yml
+on:
+  schedule:
+    - cron: '1 */3 * * *'
+  workflow_dispatch:
+  watch:
+    types: started
+  repository_dispatch:
+    types: sync-ascotbe-medusa
+jobs:
+  repo-sync:
+    env:
+      PAT: ${{ secrets.PAT }} 
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: sync ascotbe-medusa
+        uses: repo-sync/github-sync@v2
+        if: env.PAT
+        with:
+          source_repo: "https://github.com/Ascotbe/Medusa.git"
+          source_branch: "master"
+          destination_branch: "Medusa"
+          github_token: ${{ secrets.PAT }}
+      
