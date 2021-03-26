@@ -1,4 +1,4 @@
-name: danielmieddler-seclists.yml
+name: zhzyker-vulmap.yml
 on:
   schedule:
     - cron: '1 */3 * * *'
@@ -6,7 +6,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: sync-danielmieddler-seclists
+    types: sync-zhzyker-vulmap
 jobs:
   repo-sync:
     env:
@@ -18,12 +18,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: sync danielmieddler-seclists
+      - name: sync zhzyker-vulmap
         uses: repo-sync/github-sync@v2
         if: env.PAT
         with:
-          source_repo: "https://github.com/danielmiessler/SecLists.git"
-          source_branch: "master"
-          destination_branch: "seclists"
+          source_repo: "https://github.com/zhzyker/vulmap.git"
+          source_branch: "main"
+          destination_branch: "vulmap"
           github_token: ${{ secrets.PAT }}
       
