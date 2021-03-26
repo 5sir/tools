@@ -1,4 +1,4 @@
-name: fireeye-red_team_tool_countermeasures.yml
+name: 7kbstorm-7kbscan-WebPathBrute.yml
 on:
   schedule:
     - cron: '1 */3 * * *'
@@ -6,7 +6,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: sync-fireeye-red_team_tool_countermeasures
+    types: sync-7kbstorm-7kbscan-WebPathBrute
 jobs:
   repo-sync:
     env:
@@ -18,12 +18,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: sync fireeye-red_team_tool_countermeasures
+      - name: sync 7kbstorm-7kbscan-WebPathBrute
         uses: repo-sync/github-sync@v2
         if: env.PAT
         with:
-          source_repo: "https://github.com/fireeye/red_team_tool_countermeasures.git"
+          source_repo: "https://github.com/7kbstorm/7kbscan-WebPathBrute.git"
           source_branch: "master"
-          destination_branch: "red_team_tool_countermeasures"
+          destination_branch: "7kbscan-WebPathBrute"
           github_token: ${{ secrets.PAT }}
       

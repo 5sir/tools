@@ -1,4 +1,4 @@
-name: fireeye-red_team_tool_countermeasures.yml
+name: tennc-webshell.yml
 on:
   schedule:
     - cron: '1 */3 * * *'
@@ -6,7 +6,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: sync-fireeye-red_team_tool_countermeasures
+    types: sync-tennc-webshell
 jobs:
   repo-sync:
     env:
@@ -18,12 +18,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: sync fireeye-red_team_tool_countermeasures
+      - name: sync tennc-webshell
         uses: repo-sync/github-sync@v2
         if: env.PAT
         with:
-          source_repo: "https://github.com/fireeye/red_team_tool_countermeasures.git"
+          source_repo: "https://github.com/tennc/webshell.git"
           source_branch: "master"
-          destination_branch: "red_team_tool_countermeasures"
+          destination_branch: "webshell"
           github_token: ${{ secrets.PAT }}
       
